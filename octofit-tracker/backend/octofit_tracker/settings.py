@@ -7,7 +7,12 @@ SECRET_KEY = 'django-insecure-REPLACE_ME'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+import os
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME')
+codespace_host = f"{CODESPACE_NAME}-8000.app.github.dev" if CODESPACE_NAME else None
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if codespace_host:
+    ALLOWED_HOSTS.append(codespace_host)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -61,10 +66,10 @@ DATABASES = {
         'CLIENT': {
             'host': 'localhost',
             'port': 27017,
-            'username': '',
-            'password': '',
-            'authSource': 'admin',
-            'authMechanism': 'SCRAM-SHA-1',
+            #'username': '',
+            #'password': '',
+            #'authSource': 'admin',
+            #'authMechanism': 'SCRAM-SHA-1',
         },
     }
 }
